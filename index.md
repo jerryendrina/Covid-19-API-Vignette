@@ -26,7 +26,7 @@ compareCountries <- function(country1, country2, country3=NULL, country4=NULL, c
     output1 <- data %>% filter(data$Country == country1) %>% select(-c(ID,Slug, Premium))
   }
   else{
-    message <- paste("ERROR: First country supplied is not found. Check spelling or use quotation marks.")
+    message <- paste("ERROR: Check spelling of first country or use quotation marks.")
     stop(message)
   }
   #checks if second country supplied is in the data, misspelled or lack quotation marks
@@ -34,7 +34,7 @@ compareCountries <- function(country1, country2, country3=NULL, country4=NULL, c
     output2 <- data %>% filter(data$Country == country2) %>% select(-c(ID,Slug, Premium))
   }
   else{
-    message <- paste("ERROR: Second country supplied is not found. Check spelling or use quotation marks.")
+    message <- paste("ERROR: Check spelling of second country or use quotation marks.")
     stop(message)
   }
   #checks if third country supplied is in the data, misspelled or lack quotation marks
@@ -42,7 +42,7 @@ compareCountries <- function(country1, country2, country3=NULL, country4=NULL, c
   output3 <- data %>% filter(data$Country == country3) %>% select(-c(ID,Slug, Premium))
   }
   else{
-    message <- paste("ERROR: Third country supplied is not found. Check spelling or use quotation marks.")
+    message <- paste("ERROR: Check spelling of third country or use quotation marks.")
     stop(message)
     }
   #checks if fourth country supplied is in the data, misspelled or lack quotation marks  
@@ -50,7 +50,7 @@ compareCountries <- function(country1, country2, country3=NULL, country4=NULL, c
   output4 <- data %>% filter(data$Country == country4) %>% select(-c(ID,Slug, Premium))
   }
   else{
-    message <- paste("ERROR: Fourth country supplied is not found. Check spelling or use quotation marks.")
+    message <- paste("ERROR: Check spelling of fourth country or  use quotation marks.")
     stop(message)
   }
   #checks if fifth country supplied is in the data, misspelled or lack quotation marks  
@@ -58,10 +58,10 @@ compareCountries <- function(country1, country2, country3=NULL, country4=NULL, c
   output5 <- data %>% filter(data$Country == country5) %>% select(-c(ID,Slug, Premium))
   }
   else{
-    message <- paste("ERROR: Fifth country supplied is not found. Check spelling or use quotation marks.")
+    message <- paste("ERROR: Check spelling of fifth country or use quotation marks.")
     stop(message)
   }
-  output <- rbind(output1, output2, output3, output4, output5) %>% kable()
+  output <- rbind(output1, output2, output3, output4, output5)
   return(output)
 }
 
@@ -69,10 +69,11 @@ compareCountries <- function(country1, country2, country3=NULL, country4=NULL, c
 compareCountries("Philippines","Indonesia", "Albania", "China", "Malaysia")
 ```
 
-| Country     | CountryCode | NewConfirmed | TotalConfirmed | NewDeaths | TotalDeaths | NewRecovered | TotalRecovered | Date                     |
-|:------------|:------------|-------------:|---------------:|----------:|------------:|-------------:|---------------:|:-------------------------|
-| Philippines | PH          |            0 |        2470175 |         0 |       37405 |            0 |              0 | 2021-09-26T22:23:17.041Z |
-| Indonesia   | ID          |            0 |        4206253 |         0 |      141381 |            0 |              0 | 2021-09-26T22:23:17.041Z |
-| Albania     | AL          |            0 |         167354 |         0 |        2629 |            0 |              0 | 2021-09-26T22:23:17.041Z |
-| China       | CN          |           39 |         108266 |         0 |        4849 |            0 |              0 | 2021-09-26T22:23:17.041Z |
-| Malaysia    | MY          |        13899 |        2185131 |       228 |       25159 |            0 |              0 | 2021-09-26T22:23:17.041Z |
+    ## # A tibble: 5 x 9
+    ##   Country    CountryCode NewConfirmed TotalConfirmed NewDeaths TotalDeaths NewRecovered TotalRecovered Date              
+    ##   <chr>      <chr>              <int>          <int>     <int>       <int>        <int>          <int> <chr>             
+    ## 1 Philippin… PH                     0        2470175         0       37405            0              0 2021-09-26T22:23:…
+    ## 2 Indonesia  ID                     0        4206253         0      141381            0              0 2021-09-26T22:23:…
+    ## 3 Albania    AL                     0         167354         0        2629            0              0 2021-09-26T22:23:…
+    ## 4 China      CN                    39         108266         0        4849            0              0 2021-09-26T22:23:…
+    ## 5 Malaysia   MY                 13899        2185131       228       25159            0              0 2021-09-26T22:23:…

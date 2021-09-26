@@ -35,7 +35,7 @@ compareCountries <- function(country1, country2, country3=NULL, country4=NULL, c
     output1 <- data %>% filter(data$Country == country1) %>% select(-c(ID,Slug, Premium))
   }
   else{
-    message <- paste("ERROR: First country supplied is not found. Check spelling or use quotation marks.")
+    message <- paste("ERROR: Check spelling of first country or use quotation marks.")
     stop(message)
   }
   #checks if second country supplied is in the data, misspelled or lack quotation marks
@@ -43,7 +43,7 @@ compareCountries <- function(country1, country2, country3=NULL, country4=NULL, c
     output2 <- data %>% filter(data$Country == country2) %>% select(-c(ID,Slug, Premium))
   }
   else{
-    message <- paste("ERROR: Second country supplied is not found. Check spelling or use quotation marks.")
+    message <- paste("ERROR: Check spelling of second country or use quotation marks.")
     stop(message)
   }
   #checks if third country supplied is in the data, misspelled or lack quotation marks
@@ -51,7 +51,7 @@ compareCountries <- function(country1, country2, country3=NULL, country4=NULL, c
   output3 <- data %>% filter(data$Country == country3) %>% select(-c(ID,Slug, Premium))
   }
   else{
-    message <- paste("ERROR: Third country supplied is not found. Check spelling or use quotation marks.")
+    message <- paste("ERROR: Check spelling of third country or use quotation marks.")
     stop(message)
     }
   #checks if fourth country supplied is in the data, misspelled or lack quotation marks  
@@ -59,7 +59,7 @@ compareCountries <- function(country1, country2, country3=NULL, country4=NULL, c
   output4 <- data %>% filter(data$Country == country4) %>% select(-c(ID,Slug, Premium))
   }
   else{
-    message <- paste("ERROR: Fourth country supplied is not found. Check spelling or use quotation marks.")
+    message <- paste("ERROR: Check spelling of fourth country or  use quotation marks.")
     stop(message)
   }
   #checks if fifth country supplied is in the data, misspelled or lack quotation marks  
@@ -67,10 +67,10 @@ compareCountries <- function(country1, country2, country3=NULL, country4=NULL, c
   output5 <- data %>% filter(data$Country == country5) %>% select(-c(ID,Slug, Premium))
   }
   else{
-    message <- paste("ERROR: Fifth country supplied is not found. Check spelling or use quotation marks.")
+    message <- paste("ERROR: Check spelling of fifth country or use quotation marks.")
     stop(message)
   }
-  output <- rbind(output1, output2, output3, output4, output5) %>% kable()
+  output <- rbind(output1, output2, output3, output4, output5)
   return(output)
 }
 
