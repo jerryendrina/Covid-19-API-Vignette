@@ -1,6 +1,6 @@
-ST558 Project I
+Covid 19 API Vignettes
 ================
-Mana Azizsoltani
+Jeremias A.Endrina Jr.
 26 September, 2021
 
 ## R Markdown
