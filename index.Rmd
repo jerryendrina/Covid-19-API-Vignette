@@ -1,6 +1,4 @@
 ---
-title: "Covid 19 API Vignettes"
-author: "Jeremias A.Endrina Jr."
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   github_document:

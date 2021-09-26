@@ -1,6 +1,3 @@
-Covid 19 API Vignettes
-================
-Jeremias A.Endrina Jr.
 26 September, 2021
 
 -   [Required Packages](#required-packages)
