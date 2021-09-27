@@ -1,4 +1,4 @@
-26 September, 2021
+27 September, 2021
 
 -   [Required Packages](#required-packages)
 
@@ -17,12 +17,12 @@ In this project, we will use a number of amazing R packages:
 
 ``` r
 #get results of five countries to compare
-compareCountries <- function(country1, country2, country3=NULL, country4=NULL, country5=NULL){
+compareCountries <- function(country1, country2, country3, country4, country5){
   covid <- GET("https://api.covid19api.com/summary")
   covidDF <- fromJSON(rawToChar(covid$content))
   data <- covidDF$Countries %>% as_tibble()
   #checks if first country supplied is in the data, misspelled or lack quotation marks
-  if (country1 %in% data$Country){
+  if (country1 %in% data$Country | country1 %in% data$CountryCode){
     output1 <- data %>% filter(data$Country == country1) %>% select(-c(ID,Slug, Premium))
   }
   else{
@@ -61,19 +61,17 @@ compareCountries <- function(country1, country2, country3=NULL, country4=NULL, c
     message <- paste("ERROR: Check spelling of fifth country or use quotation marks.")
     stop(message)
   }
-  output <- rbind(output1, output2, output3, output4, output5)
+  output <- rbind(output1, output2, output3, output4, output5) %>% kable()
   return(output)
 }
 
 #check function if it works
-compareCountries("Philippines","Indonesia", "Albania", "China", "Malaysia")
+compareCountries("PH","China", "Mexico", "United States of America", "Australia")
 ```
 
-    ## # A tibble: 5 x 9
-    ##   Country    CountryCode NewConfirmed TotalConfirmed NewDeaths TotalDeaths NewRecovered TotalRecovered Date              
-    ##   <chr>      <chr>              <int>          <int>     <int>       <int>        <int>          <int> <chr>             
-    ## 1 Philippin… PH                     0        2470175         0       37405            0              0 2021-09-26T22:23:…
-    ## 2 Indonesia  ID                     0        4206253         0      141381            0              0 2021-09-26T22:23:…
-    ## 3 Albania    AL                     0         167354         0        2629            0              0 2021-09-26T22:23:…
-    ## 4 China      CN                    39         108266         0        4849            0              0 2021-09-26T22:23:…
-    ## 5 Malaysia   MY                 13899        2185131       228       25159            0              0 2021-09-26T22:23:…
+| Country                  | CountryCode | NewConfirmed | TotalConfirmed | NewDeaths | TotalDeaths | NewRecovered | TotalRecovered | Date                     |
+|:-------------------------|:------------|-------------:|---------------:|----------:|------------:|-------------:|---------------:|:-------------------------|
+| China                    | CN          |           43 |         108309 |         0 |        4849 |            0 |              0 | 2021-09-27T21:02:33.248Z |
+| Mexico                   | MX          |        13685 |        3632800 |       747 |      275450 |            0 |              0 | 2021-09-27T21:02:33.248Z |
+| United States of America | US          |        30952 |       42931354 |       286 |      688032 |            0 |              0 | 2021-09-27T21:02:33.248Z |
+| Australia                | AU          |         1472 |          99031 |        14 |        1245 |            0 |              0 | 2021-09-27T21:02:33.248Z |

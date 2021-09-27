@@ -26,12 +26,12 @@ library(httr)
 
 ```{r}
 #get results of five countries to compare
-compareCountries <- function(country1, country2, country3=NULL, country4=NULL, country5=NULL){
+compareCountries <- function(country1, country2, country3, country4, country5){
   covid <- GET("https://api.covid19api.com/summary")
   covidDF <- fromJSON(rawToChar(covid$content))
   data <- covidDF$Countries %>% as_tibble()
   #checks if first country supplied is in the data, misspelled or lack quotation marks
-  if (country1 %in% data$Country){
+  if (country1 %in% data$Country | country1 %in% data$CountryCode){
     output1 <- data %>% filter(data$Country == country1) %>% select(-c(ID,Slug, Premium))
   }
   else{
@@ -70,12 +70,14 @@ compareCountries <- function(country1, country2, country3=NULL, country4=NULL, c
     message <- paste("ERROR: Check spelling of fifth country or use quotation marks.")
     stop(message)
   }
-  output <- rbind(output1, output2, output3, output4, output5)
+  output <- rbind(output1, output2, output3, output4, output5) %>% kable()
   return(output)
 }
 
 #check function if it works
-compareCountries("Philippines","Indonesia", "Albania", "China", "Malaysia")
+compareCountries("PH","China", "Mexico", "United States of America", "Australia")
+
+
 
 ```
 
