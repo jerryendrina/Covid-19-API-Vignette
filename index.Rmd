@@ -23,6 +23,36 @@ library(jsonlite)
 library(httr)
 ```
 
+```{r}
+#helper function to generate a vector of countries with their corresponding Slug name.
+covid <- GET("https://api.covid19api.com/summary")
+covidDF <- fromJSON(rawToChar(covid$content))
+countryList <- covidDF$Countries %>% select(Country, Slug) %>% as_tibble()
+countryList
+```
+
+
+```{r}
+#function to generate data of a particular country
+
+countryData <- function(countrySlug){
+  if (countrySlug %in% countryList$Slug){
+      url <- paste0("https://api.covid19api.com/total/country/",countrySlug)
+      covidData <- GET(url)
+      covidDF <- fromJSON(rawToChar(covidData$content))
+      dataTibble <- covidDF %>% as_tibble()
+  } else {
+    message <- paste("ERROR: Argument for country slug is not found.
+                     Check the list of countries with its corresponding slug name
+                     and use quotation marks.")
+    stop(message)
+  }
+  return(dataTibble)
+}
+
+covidData <- countryData("united-states")
+```
+
 
 ```{r}
 #get results of five countries to compare
@@ -31,7 +61,7 @@ compareCountries <- function(country1, country2, country3, country4, country5){
   covidDF <- fromJSON(rawToChar(covid$content))
   data <- covidDF$Countries %>% as_tibble()
   #checks if first country supplied is in the data, misspelled or lack quotation marks
-  if (country1 %in% data$Country | country1 %in% data$CountryCode){
+  if (country1 %in% data$Country){
     output1 <- data %>% filter(data$Country == country1) %>% select(-c(ID,Slug, Premium))
   }
   else{
@@ -75,9 +105,7 @@ compareCountries <- function(country1, country2, country3, country4, country5){
 }
 
 #check function if it works
-compareCountries("PH","China", "Mexico", "United States of America", "Australia")
-
-
+compareCountries("Philippines","China", "Mexico", "United States of America", "Australia")
 
 ```
 
