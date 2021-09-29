@@ -85,44 +85,43 @@ covidPhil <- manipulateData(covidPhil)
 covidViet <- manipulateData(covidViet)
 covidThai <- manipulateData(covidThai)
 
-
 #histogram
-ggplot(covidPhil, aes(NewDeaths)) + geom_histogram()
+#ggplot(covidPhil, aes(NewDeaths)) + geom_histogram()
 
 #barplot
-dataBarPlot <- dataset %>% filter(Country=="Philippines", Year==2021, Month==9)
-ggplot(dataBarPlot, aes(Day, NewDeaths)) + geom_col()
+#dataBarPlot <- dataset %>% filter(Country=="Philippines", Year==2021, Month==9)
+#ggplot(dataBarPlot, aes(Day, NewDeaths)) + geom_col()
 
 
 
 
-dataset <- bind_rows(covidBang, covidInd, covidPhil, covidThai, covidViet)
+#dataset <- bind_rows(covidBang, covidInd, covidPhil, covidThai, covidViet)
 
 
-datasetPlot <- dataset %>% filter(Country %in% c("Indonesia", "Philippines", "Vietnam"))
+#datasetPlot <- dataset %>% filter(Country %in% c("Indonesia", "Philippines", "Vietnam"))
 
 
-ggplot(dataset, aes(Date,NewDeaths)) + geom_area(aes(fill=Country, alpha=0.5)) + geom_text(aes(label=NewDeaths))
+#ggplot(dataset, aes(Date,NewDeaths)) + geom_area(aes(fill=Country, alpha=0.5)) + geom_text(aes(label=NewDeaths))
 
 
 #scatterplot
-dataBarPlot <- dataset %>% filter(Country %in% c("Philippines", "Thailand"), Year==2021, Month==9)
-ggplot(dataBarPlot, aes(Day, NewDeaths)) + geom_jitter(aes(color=Country))
+#dataBarPlot <- dataset %>% filter(Country %in% c("Philippines", "Thailand"), Year==2021, Month==9)
+#ggplot(dataBarPlot, aes(Day, NewDeaths)) + geom_jitter(aes(color=Country))
 
 #boxplot
-dataBoxPlot <- dataset %>% filter(Country %in% c("Philippines", "Thailand"), Year==2021, Month==9)
+#dataBoxPlot <- dataset %>% filter(Country %in% c("Philippines", "Thailand"), Year==2021, Month==9)
 
-ggplot(dataBoxPlot, aes(Country %in% c("Philippines", "Thailand"), NewDeaths)) + 
-  geom_boxplot(aes(colour=Country))
+#ggplot(dataBoxPlot, aes(Country %in% c("Philippines", "Thailand"), NewDeaths)) + 
+  #geom_boxplot(aes(colour=Country))
 ```
 
 ```{r warning=F, message=F}
+#covidInd <- covidInd %>% filter(Year == 2021 & Month == 09)
 
-covidInd <- covidInd %>% filter(Year == 2021 & Month == 09)
+#ggplot(covidInd, aes(covidInd$Date, covidInd$NewCases)) + geom_col()
 
-ggplot(covidInd, aes(covidInd$Date, covidInd$NewCases)) + geom_col()
+#ggplot(covidInd, aes(covidInd$Date, covidInd$NewDeaths)) + geom_col()
 
-ggplot(covidInd, aes(covidInd$Date, covidInd$NewDeaths)) + geom_col()
 ```
 
 
