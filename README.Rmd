@@ -35,7 +35,7 @@ countryList <- function(){
 }
   
 countryList <- countryList()
-countryList
+kable(countryList)
 ```
 
 ```{r}
@@ -86,11 +86,11 @@ covidViet <- manipulateData(covidViet)
 covidThai <- manipulateData(covidThai)
 
 #histogram
-#ggplot(covidPhil, aes(NewDeaths)) + geom_histogram()
+ggplot(covidPhil, aes(NewDeaths)) + geom_histogram()
 
 #barplot
-#dataBarPlot <- dataset %>% filter(Country=="Philippines", Year==2021, Month==9)
-#ggplot(dataBarPlot, aes(Day, NewDeaths)) + geom_col()
+dataBarPlot <- dataset %>% filter(Country=="Philippines", Year==2021, Month==9)
+ggplot(dataBarPlot, aes(Day, NewDeaths)) + geom_col()
 
 
 
