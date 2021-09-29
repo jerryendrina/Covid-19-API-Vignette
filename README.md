@@ -27,203 +27,13 @@ countryList <- function(){
 }
   
 countryList <- countryList()
-kable(countryList)
+kable(t(countryList))
 ```
 
-| Country                         | Slug                             |
-|:--------------------------------|:---------------------------------|
-| Afghanistan                     | afghanistan                      |
-| Albania                         | albania                          |
-| Algeria                         | algeria                          |
-| Andorra                         | andorra                          |
-| Angola                          | angola                           |
-| Antigua and Barbuda             | antigua-and-barbuda              |
-| Argentina                       | argentina                        |
-| Armenia                         | armenia                          |
-| Australia                       | australia                        |
-| Austria                         | austria                          |
-| Azerbaijan                      | azerbaijan                       |
-| Bahamas                         | bahamas                          |
-| Bahrain                         | bahrain                          |
-| Bangladesh                      | bangladesh                       |
-| Barbados                        | barbados                         |
-| Belarus                         | belarus                          |
-| Belgium                         | belgium                          |
-| Belize                          | belize                           |
-| Benin                           | benin                            |
-| Bhutan                          | bhutan                           |
-| Bolivia                         | bolivia                          |
-| Bosnia and Herzegovina          | bosnia-and-herzegovina           |
-| Botswana                        | botswana                         |
-| Brazil                          | brazil                           |
-| Brunei Darussalam               | brunei                           |
-| Bulgaria                        | bulgaria                         |
-| Burkina Faso                    | burkina-faso                     |
-| Burundi                         | burundi                          |
-| Cambodia                        | cambodia                         |
-| Cameroon                        | cameroon                         |
-| Canada                          | canada                           |
-| Cape Verde                      | cape-verde                       |
-| Central African Republic        | central-african-republic         |
-| Chad                            | chad                             |
-| Chile                           | chile                            |
-| China                           | china                            |
-| Colombia                        | colombia                         |
-| Comoros                         | comoros                          |
-| Congo (Brazzaville)             | congo-brazzaville                |
-| Congo (Kinshasa)                | congo-kinshasa                   |
-| Costa Rica                      | costa-rica                       |
-| Croatia                         | croatia                          |
-| Cuba                            | cuba                             |
-| Cyprus                          | cyprus                           |
-| Czech Republic                  | czech-republic                   |
-| Côte d’Ivoire                   | cote-divoire                     |
-| Denmark                         | denmark                          |
-| Djibouti                        | djibouti                         |
-| Dominica                        | dominica                         |
-| Dominican Republic              | dominican-republic               |
-| Ecuador                         | ecuador                          |
-| Egypt                           | egypt                            |
-| El Salvador                     | el-salvador                      |
-| Equatorial Guinea               | equatorial-guinea                |
-| Eritrea                         | eritrea                          |
-| Estonia                         | estonia                          |
-| Ethiopia                        | ethiopia                         |
-| Fiji                            | fiji                             |
-| Finland                         | finland                          |
-| France                          | france                           |
-| Gabon                           | gabon                            |
-| Gambia                          | gambia                           |
-| Georgia                         | georgia                          |
-| Germany                         | germany                          |
-| Ghana                           | ghana                            |
-| Greece                          | greece                           |
-| Grenada                         | grenada                          |
-| Guatemala                       | guatemala                        |
-| Guinea                          | guinea                           |
-| Guinea-Bissau                   | guinea-bissau                    |
-| Guyana                          | guyana                           |
-| Haiti                           | haiti                            |
-| Holy See (Vatican City State)   | holy-see-vatican-city-state      |
-| Honduras                        | honduras                         |
-| Hungary                         | hungary                          |
-| Iceland                         | iceland                          |
-| India                           | india                            |
-| Indonesia                       | indonesia                        |
-| Iran, Islamic Republic of       | iran                             |
-| Iraq                            | iraq                             |
-| Ireland                         | ireland                          |
-| Israel                          | israel                           |
-| Italy                           | italy                            |
-| Jamaica                         | jamaica                          |
-| Japan                           | japan                            |
-| Jordan                          | jordan                           |
-| Kazakhstan                      | kazakhstan                       |
-| Kenya                           | kenya                            |
-| Kiribati                        | kiribati                         |
-| Korea (South)                   | korea-south                      |
-| Kuwait                          | kuwait                           |
-| Kyrgyzstan                      | kyrgyzstan                       |
-| Lao PDR                         | lao-pdr                          |
-| Latvia                          | latvia                           |
-| Lebanon                         | lebanon                          |
-| Lesotho                         | lesotho                          |
-| Liberia                         | liberia                          |
-| Libya                           | libya                            |
-| Liechtenstein                   | liechtenstein                    |
-| Lithuania                       | lithuania                        |
-| Luxembourg                      | luxembourg                       |
-| Macedonia, Republic of          | macedonia                        |
-| Madagascar                      | madagascar                       |
-| Malawi                          | malawi                           |
-| Malaysia                        | malaysia                         |
-| Maldives                        | maldives                         |
-| Mali                            | mali                             |
-| Malta                           | malta                            |
-| Marshall Islands                | marshall-islands                 |
-| Mauritania                      | mauritania                       |
-| Mauritius                       | mauritius                        |
-| Mexico                          | mexico                           |
-| Micronesia, Federated States of | micronesia                       |
-| Moldova                         | moldova                          |
-| Monaco                          | monaco                           |
-| Mongolia                        | mongolia                         |
-| Montenegro                      | montenegro                       |
-| Morocco                         | morocco                          |
-| Mozambique                      | mozambique                       |
-| Myanmar                         | myanmar                          |
-| Namibia                         | namibia                          |
-| Nepal                           | nepal                            |
-| Netherlands                     | netherlands                      |
-| New Zealand                     | new-zealand                      |
-| Nicaragua                       | nicaragua                        |
-| Niger                           | niger                            |
-| Nigeria                         | nigeria                          |
-| Norway                          | norway                           |
-| Oman                            | oman                             |
-| Pakistan                        | pakistan                         |
-| Palau                           | palau                            |
-| Palestinian Territory           | palestine                        |
-| Panama                          | panama                           |
-| Papua New Guinea                | papua-new-guinea                 |
-| Paraguay                        | paraguay                         |
-| Peru                            | peru                             |
-| Philippines                     | philippines                      |
-| Poland                          | poland                           |
-| Portugal                        | portugal                         |
-| Qatar                           | qatar                            |
-| Republic of Kosovo              | kosovo                           |
-| Romania                         | romania                          |
-| Russian Federation              | russia                           |
-| Rwanda                          | rwanda                           |
-| Saint Kitts and Nevis           | saint-kitts-and-nevis            |
-| Saint Lucia                     | saint-lucia                      |
-| Saint Vincent and Grenadines    | saint-vincent-and-the-grenadines |
-| Samoa                           | samoa                            |
-| San Marino                      | san-marino                       |
-| Sao Tome and Principe           | sao-tome-and-principe            |
-| Saudi Arabia                    | saudi-arabia                     |
-| Senegal                         | senegal                          |
-| Serbia                          | serbia                           |
-| Seychelles                      | seychelles                       |
-| Sierra Leone                    | sierra-leone                     |
-| Singapore                       | singapore                        |
-| Slovakia                        | slovakia                         |
-| Slovenia                        | slovenia                         |
-| Solomon Islands                 | solomon-islands                  |
-| Somalia                         | somalia                          |
-| South Africa                    | south-africa                     |
-| South Sudan                     | south-sudan                      |
-| Spain                           | spain                            |
-| Sri Lanka                       | sri-lanka                        |
-| Sudan                           | sudan                            |
-| Suriname                        | suriname                         |
-| Swaziland                       | swaziland                        |
-| Sweden                          | sweden                           |
-| Switzerland                     | switzerland                      |
-| Syrian Arab Republic (Syria)    | syria                            |
-| Taiwan, Republic of China       | taiwan                           |
-| Tajikistan                      | tajikistan                       |
-| Tanzania, United Republic of    | tanzania                         |
-| Thailand                        | thailand                         |
-| Timor-Leste                     | timor-leste                      |
-| Togo                            | togo                             |
-| Trinidad and Tobago             | trinidad-and-tobago              |
-| Tunisia                         | tunisia                          |
-| Turkey                          | turkey                           |
-| Uganda                          | uganda                           |
-| Ukraine                         | ukraine                          |
-| United Arab Emirates            | united-arab-emirates             |
-| United Kingdom                  | united-kingdom                   |
-| United States of America        | united-states                    |
-| Uruguay                         | uruguay                          |
-| Uzbekistan                      | uzbekistan                       |
-| Vanuatu                         | vanuatu                          |
-| Venezuela (Bolivarian Republic) | venezuela                        |
-| Viet Nam                        | vietnam                          |
-| Yemen                           | yemen                            |
-| Zambia                          | zambia                           |
-| Zimbabwe                        | zimbabwe                         |
+|         |             |         |         |         |        |                     |           |         |           |         |            |         |         |            |          |         |         |        |       |        |         |                        |          |        |                   |          |              |         |          |          |        |            |                          |      |       |       |          |         |                     |                  |            |         |      |        |                |               |         |          |          |                    |         |       |             |                   |         |         |          |      |         |        |       |        |         |         |       |        |         |           |        |               |        |       |                               |          |         |         |       |           |                           |      |         |        |       |         |       |        |            |       |          |               |        |            |         |        |         |         |         |       |               |           |            |                        |            |        |          |          |      |       |                  |            |           |        |                                 |         |        |          |            |         |            |         |         |       |             |             |           |       |         |        |      |          |       |                       |        |                  |          |      |             |        |          |       |                    |         |                    |        |                       |             |                                  |       |            |                       |              |         |        |            |              |           |          |          |                 |         |              |             |       |           |       |          |           |        |             |                              |                           |            |                              |          |             |      |                     |         |        |        |         |                      |                |                          |         |            |         |                                 |          |       |        |          |
+|:--------|:------------|:--------|:--------|:--------|:-------|:--------------------|:----------|:--------|:----------|:--------|:-----------|:--------|:--------|:-----------|:---------|:--------|:--------|:-------|:------|:-------|:--------|:-----------------------|:---------|:-------|:------------------|:---------|:-------------|:--------|:---------|:---------|:-------|:-----------|:-------------------------|:-----|:------|:------|:---------|:--------|:--------------------|:-----------------|:-----------|:--------|:-----|:-------|:---------------|:--------------|:--------|:---------|:---------|:-------------------|:--------|:------|:------------|:------------------|:--------|:--------|:---------|:-----|:--------|:-------|:------|:-------|:--------|:--------|:------|:-------|:--------|:----------|:-------|:--------------|:-------|:------|:------------------------------|:---------|:--------|:--------|:------|:----------|:--------------------------|:-----|:--------|:-------|:------|:--------|:------|:-------|:-----------|:------|:---------|:--------------|:-------|:-----------|:--------|:-------|:--------|:--------|:--------|:------|:--------------|:----------|:-----------|:-----------------------|:-----------|:-------|:---------|:---------|:-----|:------|:-----------------|:-----------|:----------|:-------|:--------------------------------|:--------|:-------|:---------|:-----------|:--------|:-----------|:--------|:--------|:------|:------------|:------------|:----------|:------|:--------|:-------|:-----|:---------|:------|:----------------------|:-------|:-----------------|:---------|:-----|:------------|:-------|:---------|:------|:-------------------|:--------|:-------------------|:-------|:----------------------|:------------|:---------------------------------|:------|:-----------|:----------------------|:-------------|:--------|:-------|:-----------|:-------------|:----------|:---------|:---------|:----------------|:--------|:-------------|:------------|:------|:----------|:------|:---------|:----------|:-------|:------------|:-----------------------------|:--------------------------|:-----------|:-----------------------------|:---------|:------------|:-----|:--------------------|:--------|:-------|:-------|:--------|:---------------------|:---------------|:-------------------------|:--------|:-----------|:--------|:--------------------------------|:---------|:------|:-------|:---------|
+| Country | Afghanistan | Albania | Algeria | Andorra | Angola | Antigua and Barbuda | Argentina | Armenia | Australia | Austria | Azerbaijan | Bahamas | Bahrain | Bangladesh | Barbados | Belarus | Belgium | Belize | Benin | Bhutan | Bolivia | Bosnia and Herzegovina | Botswana | Brazil | Brunei Darussalam | Bulgaria | Burkina Faso | Burundi | Cambodia | Cameroon | Canada | Cape Verde | Central African Republic | Chad | Chile | China | Colombia | Comoros | Congo (Brazzaville) | Congo (Kinshasa) | Costa Rica | Croatia | Cuba | Cyprus | Czech Republic | Côte d’Ivoire | Denmark | Djibouti | Dominica | Dominican Republic | Ecuador | Egypt | El Salvador | Equatorial Guinea | Eritrea | Estonia | Ethiopia | Fiji | Finland | France | Gabon | Gambia | Georgia | Germany | Ghana | Greece | Grenada | Guatemala | Guinea | Guinea-Bissau | Guyana | Haiti | Holy See (Vatican City State) | Honduras | Hungary | Iceland | India | Indonesia | Iran, Islamic Republic of | Iraq | Ireland | Israel | Italy | Jamaica | Japan | Jordan | Kazakhstan | Kenya | Kiribati | Korea (South) | Kuwait | Kyrgyzstan | Lao PDR | Latvia | Lebanon | Lesotho | Liberia | Libya | Liechtenstein | Lithuania | Luxembourg | Macedonia, Republic of | Madagascar | Malawi | Malaysia | Maldives | Mali | Malta | Marshall Islands | Mauritania | Mauritius | Mexico | Micronesia, Federated States of | Moldova | Monaco | Mongolia | Montenegro | Morocco | Mozambique | Myanmar | Namibia | Nepal | Netherlands | New Zealand | Nicaragua | Niger | Nigeria | Norway | Oman | Pakistan | Palau | Palestinian Territory | Panama | Papua New Guinea | Paraguay | Peru | Philippines | Poland | Portugal | Qatar | Republic of Kosovo | Romania | Russian Federation | Rwanda | Saint Kitts and Nevis | Saint Lucia | Saint Vincent and Grenadines     | Samoa | San Marino | Sao Tome and Principe | Saudi Arabia | Senegal | Serbia | Seychelles | Sierra Leone | Singapore | Slovakia | Slovenia | Solomon Islands | Somalia | South Africa | South Sudan | Spain | Sri Lanka | Sudan | Suriname | Swaziland | Sweden | Switzerland | Syrian Arab Republic (Syria) | Taiwan, Republic of China | Tajikistan | Tanzania, United Republic of | Thailand | Timor-Leste | Togo | Trinidad and Tobago | Tunisia | Turkey | Uganda | Ukraine | United Arab Emirates | United Kingdom | United States of America | Uruguay | Uzbekistan | Vanuatu | Venezuela (Bolivarian Republic) | Viet Nam | Yemen | Zambia | Zimbabwe |
+| Slug    | afghanistan | albania | algeria | andorra | angola | antigua-and-barbuda | argentina | armenia | australia | austria | azerbaijan | bahamas | bahrain | bangladesh | barbados | belarus | belgium | belize | benin | bhutan | bolivia | bosnia-and-herzegovina | botswana | brazil | brunei            | bulgaria | burkina-faso | burundi | cambodia | cameroon | canada | cape-verde | central-african-republic | chad | chile | china | colombia | comoros | congo-brazzaville   | congo-kinshasa   | costa-rica | croatia | cuba | cyprus | czech-republic | cote-divoire  | denmark | djibouti | dominica | dominican-republic | ecuador | egypt | el-salvador | equatorial-guinea | eritrea | estonia | ethiopia | fiji | finland | france | gabon | gambia | georgia | germany | ghana | greece | grenada | guatemala | guinea | guinea-bissau | guyana | haiti | holy-see-vatican-city-state   | honduras | hungary | iceland | india | indonesia | iran                      | iraq | ireland | israel | italy | jamaica | japan | jordan | kazakhstan | kenya | kiribati | korea-south   | kuwait | kyrgyzstan | lao-pdr | latvia | lebanon | lesotho | liberia | libya | liechtenstein | lithuania | luxembourg | macedonia              | madagascar | malawi | malaysia | maldives | mali | malta | marshall-islands | mauritania | mauritius | mexico | micronesia                      | moldova | monaco | mongolia | montenegro | morocco | mozambique | myanmar | namibia | nepal | netherlands | new-zealand | nicaragua | niger | nigeria | norway | oman | pakistan | palau | palestine             | panama | papua-new-guinea | paraguay | peru | philippines | poland | portugal | qatar | kosovo             | romania | russia             | rwanda | saint-kitts-and-nevis | saint-lucia | saint-vincent-and-the-grenadines | samoa | san-marino | sao-tome-and-principe | saudi-arabia | senegal | serbia | seychelles | sierra-leone | singapore | slovakia | slovenia | solomon-islands | somalia | south-africa | south-sudan | spain | sri-lanka | sudan | suriname | swaziland | sweden | switzerland | syria                        | taiwan                    | tajikistan | tanzania                     | thailand | timor-leste | togo | trinidad-and-tobago | tunisia | turkey | uganda | ukraine | united-arab-emirates | united-kingdom | united-states            | uruguay | uzbekistan | vanuatu | venezuela                       | vietnam  | yemen | zambia | zimbabwe |
 
 ``` r
 #function to generate data of a particular country
@@ -278,7 +88,7 @@ ggplot(covidPhil, aes(NewDeaths)) + geom_histogram()
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 ``` r
 #barplot
@@ -286,7 +96,7 @@ dataBarPlot <- dataset %>% filter(Country=="Philippines", Year==2021, Month==9)
 ggplot(dataBarPlot, aes(Day, NewDeaths)) + geom_col()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-4-2.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-7-2.png)<!-- -->
 
 ``` r
 #dataset <- bind_rows(covidBang, covidInd, covidPhil, covidThai, covidViet)

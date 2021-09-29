@@ -35,7 +35,7 @@ countryList <- function(){
 }
   
 countryList <- countryList()
-kable(countryList)
+kable(t(countryList))
 ```
 
 ```{r}
