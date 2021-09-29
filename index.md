@@ -1,6 +1,7 @@
-27 September, 2021
+28 September, 2021
 
 -   [Required Packages](#required-packages)
+-   [Data Manipulation](#data-manipulation)
 
 # Required Packages
 
@@ -9,17 +10,23 @@ In this project, we will use a number of amazing R packages:
 -   `knitr`: to generate pretty tables of date using the `kable()`
     function.  
 -   `tidyverse`: to manipulate data, generate plots (via `ggplot2`), and
-    to use piping/chaining.  
+    to use piping/chaining.
 -   `rmarkdown`: to knit output files manually using the `render()`
     function.  
 -   `jsonlite`: to pull data from various endpoints of the Covid 19
     APIs.
 
 ``` r
-#helper function to generate a vector of countries with their corresponding Slug name.
-covid <- GET("https://api.covid19api.com/summary")
-covidDF <- fromJSON(rawToChar(covid$content))
-countryList <- covidDF$Countries %>% select(Country, Slug) %>% as_tibble()
+#helper function to generate a vector of countries and their corresponding Slug name whose data are update daily.
+
+countryList <- function(){
+  covid <- GET("https://api.covid19api.com/summary")
+  covidDF <- fromJSON(rawToChar(covid$content))
+  countryList <- covidDF$Countries %>% select(Country, Slug) %>% as_tibble()
+  return(countryList)
+}
+  
+countryList <- countryList()
 countryList
 ```
 
@@ -56,8 +63,95 @@ countryData <- function(countrySlug){
   return(dataTibble)
 }
 
-covidData <- countryData("united-states")
+#now we can use the function to generate some data from five sample countries
+covidInd <- countryData("indonesia")
+covidBang <- countryData("bangladesh")
+covidPhil <- countryData("philippines")
+covidViet <- countryData("vietnam")
+covidThai <- countryData("thailand")
 ```
+
+# Data Manipulation
+
+``` r
+#we can create a function that will manipulate our data to prepare for data summaries and visualization
+manipulateData <- function(dataset){
+  dataset$Date <- as.Date(dataset$Date)
+  dataset <- dataset %>% select(-c(CountryCode, Province, City, CityCode, Lat, Lon)) %>%
+                  separate(Date, c("Year", "Month", "Day"), sep="-", convert=T, 
+                     remove=F) %>% mutate("NewCases"=diff(c(0, Confirmed)),
+                                          "NewDeaths"=diff(c(0, Deaths)))
+  dataset$Country <- as.factor(dataset$Country)
+  return(dataset)
+}
+
+#manipulate each dataset using the function above to prepare for summarization and visualization
+covidInd <- manipulateData(covidInd)
+covidBang <- manipulateData(covidBang)
+covidPhil <- manipulateData(covidPhil)
+covidViet <- manipulateData(covidViet)
+covidThai <- manipulateData(covidThai)
+
+
+#histogram
+ggplot(covidPhil, aes(NewDeaths)) + geom_histogram()
+```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+![](index_files/figure-gfm/unnamed-chunk-105-1.png)<!-- -->
+
+``` r
+#barplot
+dataBarPlot <- dataset %>% filter(Country=="Philippines", Year==2021, Month==9)
+ggplot(dataBarPlot, aes(Day, NewDeaths)) + geom_col()
+```
+
+![](index_files/figure-gfm/unnamed-chunk-105-2.png)<!-- -->
+
+``` r
+dataset <- bind_rows(covidBang, covidInd, covidPhil, covidThai, covidViet)
+
+
+datasetPlot <- dataset %>% filter(Country %in% c("Indonesia", "Philippines", "Vietnam"))
+
+
+ggplot(dataset, aes(Date,NewDeaths)) + geom_area(aes(fill=Country, alpha=0.5)) + geom_text(aes(label=NewDeaths))
+```
+
+![](index_files/figure-gfm/unnamed-chunk-105-3.png)<!-- -->
+
+``` r
+#scatterplot
+dataBarPlot <- dataset %>% filter(Country %in% c("Philippines", "Thailand"), Year==2021, Month==9)
+ggplot(dataBarPlot, aes(Day, NewDeaths)) + geom_jitter(aes(color=Country))
+```
+
+![](index_files/figure-gfm/unnamed-chunk-105-4.png)<!-- -->
+
+``` r
+#boxplot
+dataBoxPlot <- dataset %>% filter(Country %in% c("Philippines", "Thailand"), Year==2021, Month==9)
+
+ggplot(dataBoxPlot, aes(Country %in% c("Philippines", "Thailand"), NewDeaths)) + 
+  geom_boxplot(aes(colour=Country))
+```
+
+![](index_files/figure-gfm/unnamed-chunk-105-5.png)<!-- -->
+
+``` r
+covidInd <- covidInd %>% filter(Year == 2021 & Month == 09)
+
+ggplot(covidInd, aes(covidInd$Date, covidInd$NewCases)) + geom_col()
+```
+
+![](index_files/figure-gfm/unnamed-chunk-106-1.png)<!-- -->
+
+``` r
+ggplot(covidInd, aes(covidInd$Date, covidInd$NewDeaths)) + geom_col()
+```
+
+![](index_files/figure-gfm/unnamed-chunk-106-2.png)<!-- -->
 
 ``` r
 #get results of five countries to compare
@@ -67,7 +161,7 @@ compareCountries <- function(country1, country2, country3, country4, country5){
   data <- covidDF$Countries %>% as_tibble()
   #checks if first country supplied is in the data, misspelled or lack quotation marks
   if (country1 %in% data$Country){
-    output1 <- data %>% filter(data$Country == country1) %>% select(-c(ID,Slug, Premium))
+    output1 <- data %>% filter(data$Country == country1) %>% select(-c(ID,Slug,Premium))
   }
   else{
     message <- paste("ERROR: Check spelling of first country or use quotation marks.")
@@ -99,7 +193,7 @@ compareCountries <- function(country1, country2, country3, country4, country5){
   }
   #checks if fifth country supplied is in the data, misspelled or lack quotation marks  
   if (country5 %in% data$Country){
-  output5 <- data %>% filter(data$Country == country5) %>% select(-c(ID,Slug, Premium))
+  output5 <- data %>% filter(data$Country == country5) %>% select(-c(ID, Slug, Premium))
   }
   else{
     message <- paste("ERROR: Check spelling of fifth country or use quotation marks.")
@@ -115,8 +209,8 @@ compareCountries("Philippines","China", "Mexico", "United States of America", "A
 
 | Country                  | CountryCode | NewConfirmed | TotalConfirmed | NewDeaths | TotalDeaths | NewRecovered | TotalRecovered | Date                     |
 |:-------------------------|:------------|-------------:|---------------:|----------:|------------:|-------------:|---------------:|:-------------------------|
-| Philippines              | PH          |            0 |        2490858 |         0 |       37405 |            0 |              0 | 2021-09-27T21:02:33.248Z |
-| China                    | CN          |           43 |         108309 |         0 |        4849 |            0 |              0 | 2021-09-27T21:02:33.248Z |
-| Mexico                   | MX          |        13685 |        3632800 |       747 |      275450 |            0 |              0 | 2021-09-27T21:02:33.248Z |
-| United States of America | US          |        30952 |       42931354 |       286 |      688032 |            0 |              0 | 2021-09-27T21:02:33.248Z |
-| Australia                | AU          |         1472 |          99031 |        14 |        1245 |            0 |              0 | 2021-09-27T21:02:33.248Z |
+| Philippines              | PH          |            0 |        2490858 |         0 |       37405 |            0 |              0 | 2021-09-29T00:03:19.855Z |
+| China                    | CN          |           35 |         108344 |         0 |        4849 |            0 |              0 | 2021-09-29T00:03:19.855Z |
+| Mexico                   | MX          |         3007 |        3635807 |       226 |      275676 |            0 |              0 | 2021-09-29T00:03:19.855Z |
+| United States of America | US          |       185088 |       43116442 |      2394 |      690426 |            0 |              0 | 2021-09-29T00:03:19.855Z |
+| Australia                | AU          |         1880 |         100911 |        11 |        1256 |            0 |              0 | 2021-09-29T00:03:19.855Z |
