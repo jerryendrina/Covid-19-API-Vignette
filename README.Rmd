@@ -243,7 +243,7 @@ head(dataset)
 
 # Exploratory Data Analysis
 
-## Contingency Tables
+## Contingency Tables  
 The first exploratory analysis that we will use is the contingency table. We can show through tables different counts of different variables in specific range of time. For consistency, we will use the three variables new cases, new deaths and active cases for our table. We will apply these variables to the Philippines' Covid information from the 24th to 30th of September.
 ```{r}
 #prepare new cases contingency table
@@ -268,7 +268,7 @@ kable(dataCont, caption="Philippines' 7-day Contingency Table of Active Cases")
 ```
 
 
-## Numerical Summaries
+## Numerical Summaries  
 The next exploratory analysis that we will do is the use of numerical summaries. These summaries will describe characteristics about a variable such as where the center is located or how spread the values are. We will use mean, median, standard deviation, 1st quantile, 3rd quantile, inter-quantile range and maximum to compare the Philippines' Covid information to other countries in terms of new cases, new deaths and active cases since the start to other countries since the start of the pandemic.
 
 ```{r}
@@ -298,7 +298,7 @@ kable(dataNumSum, caption="Numerical Summaries of Active Cases since the Start o
 ```
 Among the three countries, the Philippines consistently rank the second highest next to Indonesia in all numerical summaries and across all three variables.
 
-## Bar plots
+## Bar plots  
 For our bar plots example, we will use the October 1, 2021 data of the five countries. The use of bar plots help us show comparison between categories of data. In the example below, we will still use the three variables new cases, new deaths and active cases.  
 ```{r}
 #set how plots will be arranged in the output
@@ -326,8 +326,9 @@ ggplot(dataBarPlot, aes(Country, Active)) + geom_col(fill="green", alpha=0.5) +
 It can be seen from the barplots above that last October 1, 2021, the Philippines consistently rank second for new cases and new deaths recorded on that day while it went one rank lower in terms of the number of active cases on that same day.  
 
 
-## Histograms
+## Histograms  
 We will use histograms to summarize or provide a visual representation of the distribution of our data. We will use `facet_wrap()` to place histograms of the three countries in one plot. In the same manner, we will use the three variables new cases, new deaths and active cases for the month of September 2021.  
+
 ```{r}
 #prepare dataset
 dataHist <- dataset %>% filter(Year==2021, Month==9)
@@ -347,11 +348,14 @@ ggplot(dataHist, aes(Active)) + geom_histogram(bins=20, color="black", fill="yel
   labs(x="Active Cases", y="Counts", title="Histogram of Active Cases for September 2021") +
     facet_wrap(~Country)
 ```
+
+
 The daily cases histograms suggest that the Philippines' September data is skewed to the left which means that there are a number of days in September where it records more Covid cases as compared to the other two countries. On the other hand, the new deaths histogram show that Indonesia and Philippines have similar distributions. Lastly, the active cases histograms are not very meaningful because some countries failed to submit their number of daily recoveries which aids in computing active cases per day.
 
 
-## Box plots
-We will use box plots to show visually the distribution of our three numerical data (new cases, new deaths and active cases) for the month of September 2021 by using our data's quantiles and averages. 
+## Box plots  
+We will use box plots to show visually the distribution of our three numerical data (new cases, new deaths and active cases) for the month of September 2021 by using our data's quantiles and averages.  
+
 ```{r}
 #prepare data set
 dataBoxPlot <- dataset %>% filter(Year==2021, Month==9)
@@ -371,12 +375,14 @@ ggplot(dataBoxPlot, aes(Country, Active)) + geom_boxplot(aes(colour=Country)) +
   labs(x="Country", y="Counts", title="Boxplots of Active Cases for September 2021") + 
     theme(legend.position="none")   
 ```
-The box plot on new Covid cases suggest that the the Philippines recorded the highest for the month of September. It is second in rank again for both number new deaths and active cases in the same month. These box plots suggest further that there is significant difference in terms of the distributions of the data in each country.
+
+The box plot on new Covid cases suggest that the the Philippines recorded the highest for the month of September. It is second in rank again for both number new deaths and active cases in the same month. These box plots suggest further that there is significant difference in terms of the distributions of the data in each country.  
 
 
-## Scatterplots with Line Graphs
+## Scatterplots with Line Graphs  
 
 In these plots, we will use the 'Date' variable to easily plot trends since the start of the pandemic. We will overlay line graphs to to our scatter plots to help show trends of our data.  
+
 
 ```{r warning=F, message=F}
 #New Cases
@@ -397,6 +403,7 @@ ggplot(dataset, aes(Date, Active)) + geom_jitter(aes(color=Country)) +
     labs(x="Date", y="Active Cases", 
          title="Scatterplots with Line Graphs of Active Cases since the Start of Pandemic")
 ```
+
 The line graphs of new Covid cases suggest that since the start of the pandemic, the Philippines have experienced three waves of the spread of Covid-19. It has consistently ranked second, next to Indonesia, for both new cases and new deaths. The sudden jump of line graphs under active cases for August 2021 is due to the different countries' failure to submit reports on the number of daily recoveries thus loosing track of current active cases.  
 
 
