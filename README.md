@@ -553,7 +553,7 @@ ggplot(dataBarPlot, aes(Country, NewCases)) + geom_col(fill="Blue", alpha=0.5) +
     geom_text(aes(label=NewCases))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 ``` r
 #barplot for new deaths
@@ -563,7 +563,7 @@ ggplot(dataBarPlot, aes(Country, NewDeaths)) + geom_col(fill="red", alpha=0.5) +
     geom_text(aes(label=NewDeaths))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-5-2.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-6-2.png)<!-- -->
 
 ``` r
 #barplot for active cases
@@ -573,7 +573,7 @@ ggplot(dataBarPlot, aes(Country, Active)) + geom_col(fill="green", alpha=0.5) +
     geom_text(aes(label=Active))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-5-3.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-6-3.png)<!-- -->
 
 It can be seen from the barplots above that last October 1, 2021, the
 Philippines consistently rank second for new cases and new deaths
@@ -598,7 +598,7 @@ ggplot(dataHist, aes(NewCases)) + geom_histogram(bins=17, color="black", fill="b
     facet_wrap(~Country)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 ``` r
 #new deaths
@@ -607,7 +607,7 @@ ggplot(dataHist, aes(NewDeaths)) + geom_histogram(bins=17, color="black", fill="
     facet_wrap(~Country)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-6-2.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-7-2.png)<!-- -->
 
 ``` r
 #active cases
@@ -616,7 +616,7 @@ ggplot(dataHist, aes(Active)) + geom_histogram(bins=20, color="black", fill="yel
     facet_wrap(~Country)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-6-3.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-7-3.png)<!-- -->
 
 The daily cases histograms suggest that the Philippines’ September data
 is skewed to the left which means that there are a number of days in
@@ -643,7 +643,7 @@ ggplot(dataBoxPlot, aes(Country, NewCases)) + geom_boxplot(aes(colour=Country)) 
     theme(legend.position="none")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 ``` r
 #new deaths box plots
@@ -652,7 +652,7 @@ ggplot(dataBoxPlot, aes(Country, NewDeaths)) + geom_boxplot(aes(colour=Country))
     theme(legend.position="none") 
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-7-2.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-8-2.png)<!-- -->
 
 ``` r
 #active cases boxplots
@@ -661,7 +661,7 @@ ggplot(dataBoxPlot, aes(Country, Active)) + geom_boxplot(aes(colour=Country)) +
     theme(legend.position="none")   
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-7-3.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-8-3.png)<!-- -->
 
 The box plot on new Covid cases suggest that the the Philippines
 recorded the highest for the month of September. It is second in rank
@@ -683,7 +683,7 @@ ggplot(dataset, aes(Date, NewCases)) + geom_jitter(aes(color=Country)) +
          title="Scatterplots with Line Graphs of New Covid Cases since the Start of Pandemic")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 ``` r
 #New Deaths
@@ -693,7 +693,7 @@ ggplot(dataset, aes(Date, NewDeaths)) + geom_jitter(aes(color=Country)) +
          title="Scatterplots with Line Graphs of New Deaths since the Start of Pandemic")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-8-2.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-9-2.png)<!-- -->
 
 ``` r
 #Active Cases
@@ -703,7 +703,7 @@ ggplot(dataset, aes(Date, Active)) + geom_jitter(aes(color=Country)) +
          title="Scatterplots with Line Graphs of Active Cases since the Start of Pandemic")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-8-3.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-9-3.png)<!-- -->
 
 The line graphs of new Covid cases suggest that since the start of the
 pandemic, the Philippines have experienced three waves of the spread of
