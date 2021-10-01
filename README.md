@@ -1,24 +1,23 @@
 01 October, 2021
 
--   [I. Required Packages](#i-required-packages)
--   [II. API Interaction Functions](#ii-api-interaction-functions)
-    -   [1. `countyList()`](#1-countylist)
-    -   [2. `countrySlugAbbrev()`](#2-countryslugabbrev)
-    -   [3. `firstCase()`](#3-firstcase)
-    -   [4. `casesCountryTime()`](#4-casescountrytime)
-    -   [5. `variableCountryTime()`](#5-variablecountrytime)
-    -   [6. `compareCountries()`](#6-comparecountries)
-    -   [7. `countryData()`](#7-countrydata)
--   [III. Data Manipulation](#iii-data-manipulation)
--   [IV. Exploratory Data Analysis](#iv-exploratory-data-analysis)
-    -   [1. Contingency Tables](#1-contingency-tables)
-    -   [2. Numerical Summaries](#2-numerical-summaries)
-    -   [3. Bar plots](#3-bar-plots)
-    -   [4. Histograms](#4-histograms)
-    -   [5. Boxplots](#5-boxplots)
-    -   [6. Scatterplots with Line
-        Graphs](#6-scatterplots-with-line-graphs)
--   [V. Summary](#v-summary)
+-   [Required Packages](#required-packages)
+-   [API Interaction Functions](#api-interaction-functions)
+    -   [`countyList()`](#countylist)
+    -   [`countrySlugAbbrev()`](#countryslugabbrev)
+    -   [`firstCase()`](#firstcase)
+    -   [`casesCountryTime()`](#casescountrytime)
+    -   [`variableCountryTime()`](#variablecountrytime)
+    -   [`compareCountries()`](#comparecountries)
+    -   [`countryData()`](#countrydata)
+-   [Data Manipulation](#data-manipulation)
+-   [Exploratory Data Analysis](#exploratory-data-analysis)
+    -   [Contingency Tables](#contingency-tables)
+    -   [Numerical Summaries](#numerical-summaries)
+    -   [Bar plots](#bar-plots)
+    -   [Histograms](#histograms)
+    -   [Box plots](#box-plots)
+    -   [Scatterplots with Line Graphs](#scatterplots-with-line-graphs)
+-   [Summary](#summary)
 
 This vignette aims to demonstrate how to access data from an API
 particularly the [Covid-19 API](https://covid19api.com). This will
@@ -28,7 +27,7 @@ plots. The vignette will focus on comparing Philippines’ Covid-19 data
 to neighboring countries with similar land area, demographics and
 population.
 
-# I. Required Packages
+# Required Packages
 
 In this project, we will use a number of amazing R packages:
 
@@ -39,18 +38,20 @@ In this project, we will use a number of amazing R packages:
 -   [`rmarkdown`](https://rmarkdown.rstudio.com/): to knit output files
     manually using the `render()` function.  
 -   [`jsonlite`](https://cran.r-project.org/web/packages/jsonlite/index.html):
-    to pull data from various endpoints of the Covid 19 APIs.
+    to pull data from various endpoints of the Covid 19 APIs.  
+-   [`httr`](https://httr.r-lib.org/articles/api-packages.html): to make
+    computer and API communicate with each other.
 
 To be able to use the packages mentioned above, we need to load them
 using the `library()` function.
 
-# II. API Interaction Functions
+# API Interaction Functions
 
 In order to make our computer communicate with the Covid-19 API, we need
 to create different functions that will generate the data set or
 information that we want.
 
-## 1. `countyList()`
+## `countyList()`
 
 This function is important because this will generate a list of
 countries that have information about Covid-19. This will also generate
@@ -81,7 +82,7 @@ head(countryList)
     ## 5 Bulgaria                 bulgaria                 BG   
     ## 6 Honduras                 honduras                 HN
 
-## 2. `countrySlugAbbrev()`
+## `countrySlugAbbrev()`
 
 Accessing a data set of a specific country would need the use of the
 country’s slug name as an argument of the function. This function
@@ -117,7 +118,7 @@ The results above suggest that if we want to access Covid-19 information
 about the United States of America, we will have to use the slug name
 “united-states”.
 
-## 3. `firstCase()`
+## `firstCase()`
 
 This function will generate the day of the first confirmed case/s of
 Covid-19 of the country specified. The use of the country’s slug name
@@ -152,7 +153,7 @@ firstCase("philippines")
 The results tell us that last 30th of January 2020, the Philippines
 recorded its first confirmed case of Covid-19.
 
-## 4. `casesCountryTime()`
+## `casesCountryTime()`
 
 This function will generate the cumulative number of confirmed cases of
 a particular country in a specific period of time. The user needs to
@@ -197,7 +198,7 @@ head(philSept)
 The results above show the cumulative confirmed cases of the Philippines
 for the month of September.
 
-## 5. `variableCountryTime()`
+## `variableCountryTime()`
 
 This function will access a specific type of information that we want to
 access. The user has to pass the country’s slug name, start and end date
@@ -245,7 +246,7 @@ philSept
 The results above show the cumulative number of deaths in the
 Philippines from Sept 26, 2021 to October 2, 2021.
 
-## 6. `compareCountries()`
+## `compareCountries()`
 
 This function will generate the current date’s Covid-19 information of
 five different countries. The user needs to supply the country names as
@@ -282,17 +283,17 @@ compareCountries("Philippines","China", "Mexico", "United States of America", "C
     ## # A tibble: 5 x 6
     ##   Country                  NewConfirmed TotalConfirmed NewDeaths TotalDeaths Date                    
     ##   <chr>                           <int>          <int>     <int>       <int> <chr>                   
-    ## 1 Philippines                         0        2580173         0       38656 2021-10-03T21:25:23.247Z
-    ## 2 China                              33         108528         0        4849 2021-10-03T21:25:23.247Z
-    ## 3 Mexico                           7369        3678980       614      278592 2021-10-03T21:25:23.247Z
-    ## 4 United States of America        39206       43657833       647      700932 2021-10-03T21:25:23.247Z
-    ## 5 Canada                           1728        1339341        22       25264 2021-10-03T21:25:23.247Z
+    ## 1 Philippines                         0        2580173         0       38656 2021-10-03T22:46:19.746Z
+    ## 2 China                              33         108528         0        4849 2021-10-03T22:46:19.746Z
+    ## 3 Mexico                           7369        3678980       614      278592 2021-10-03T22:46:19.746Z
+    ## 4 United States of America        39206       43657833       647      700932 2021-10-03T22:46:19.746Z
+    ## 5 Canada                           1728        1339341        22       25264 2021-10-03T22:46:19.746Z
 
 The results above show the latest information, in this case October 3,
 2021, of five different countries. This information changes when
 Covid-19 API updates its database and the user re-runs the function.
 
-## 7. `countryData()`
+## `countryData()`
 
 This function will generate all data (daily new cases, new deaths,
 active cases and recovered patients) of a particular country since the
@@ -322,31 +323,29 @@ tail(covidUS)
 ```
 
     ## # A tibble: 6 x 12
-    ##   Country                  CountryCode Province City  CityCode Lat   Lon   Confirmed Deaths Recovered   Active Date                
-    ##   <chr>                    <chr>       <chr>    <chr> <chr>    <chr> <chr>     <int>  <int>     <int>    <int> <chr>               
-    ## 1 United States of America ""          ""       ""    ""       0     0      43116877 690435         0 42426006 2021-09-27T00:00:00Z
-    ## 2 United States of America ""          ""       ""    ""       0     0      43226482 692592         0 42534635 2021-09-28T00:00:00Z
-    ## 3 United States of America ""          ""       ""    ""       0     0      43349749 695123         0 42654075 2021-09-29T00:00:00Z
-    ## 4 United States of America ""          ""       ""    ""       0     0      43460343 697851         0 42761967 2021-09-30T00:00:00Z
-    ## 5 United States of America ""          ""       ""    ""       0     0      43618627 700285         0 42918342 2021-10-01T00:00:00Z
-    ## 6 United States of America ""          ""       ""    ""       0     0      43657833 700932         0 42956901 2021-10-02T00:00:00Z
+    ##   Country                  CountryCode Province City  CityCode Lat   Lon   Confirmed Deaths Recovered   Active Date               
+    ##   <chr>                    <chr>       <chr>    <chr> <chr>    <chr> <chr>     <int>  <int>     <int>    <int> <chr>              
+    ## 1 United States of America ""          ""       ""    ""       0     0      43116877 690435         0 42426006 2021-09-27T00:00:0…
+    ## 2 United States of America ""          ""       ""    ""       0     0      43226482 692592         0 42534635 2021-09-28T00:00:0…
+    ## 3 United States of America ""          ""       ""    ""       0     0      43349749 695123         0 42654075 2021-09-29T00:00:0…
+    ## 4 United States of America ""          ""       ""    ""       0     0      43460343 697851         0 42761967 2021-09-30T00:00:0…
+    ## 5 United States of America ""          ""       ""    ""       0     0      43618627 700285         0 42918342 2021-10-01T00:00:0…
+    ## 6 United States of America ""          ""       ""    ""       0     0      43657833 700932         0 42956901 2021-10-02T00:00:0…
 
-# III. Data Manipulation
+# Data Manipulation
 
 As mentioned above, this vignette focuses on comparing Covid-19
-information of the Philippines to four other neighboring countries
-namely: Indonesia, Bangladesh, Vietnam and Thailand. To start, we will
-use the `contryData()` function to generate all Covid-19 information for
-each country, then we will manipulate the generated data set and combine
-all five of them to one big data set for exploration and analysis.
+information of the Philippines to two other neighboring countries
+namely: Indonesia and Bangladesh. To start, we will use the
+`contryData()` function to generate all Covid-19 information for each
+country, then we will manipulate the generated data set and combine all
+three of them to one big data set for exploration and analysis.
 
 ``` r
 #use countryData() function to generate Covid-19 information for each country
 covidInd <- countryData("indonesia")
 covidBang <- countryData("bangladesh")
 covidPhil <- countryData("philippines")
-covidViet <- countryData("vietnam")
-covidThai <- countryData("thailand")
 ```
 
 Now that we have the information for each country, let’s manipulate the
@@ -358,48 +357,30 @@ by subtracting two consecutive days. We can convert the string “Date”
 variable to a date type of object so that we can perform date
 operations. We can also separate the string “Date” variable to day,
 month and year which will come handy when we want to filter our data
-set. Since we will be doing these processes to all five of the data
-sets, it would be wise to create a one function and apply that function
-to each data set. After that, we are then ready to bind them together to
-create one big data set ready for analysis.
+set. After that, we are then ready to bind them together to create one
+big data set ready for analysis.
 
 ``` r
-#create a function that will manipulate our data as stated above
-manipulateData <- function(dataset){
-  dataset$Date <- as.Date(dataset$Date)
-  dataset <- dataset %>% select(-c(CountryCode, Province, City, CityCode, Lat, Lon)) %>%
-                  separate(Date, c("Year", "Month", "Day"), sep="-", convert=T, 
-                     remove=F) %>% mutate("NewCases"=diff(c(0, Confirmed)),
-                                          "NewDeaths"=diff(c(0, Deaths)))
-  dataset$Country <- as.factor(dataset$Country)
-  return(dataset)
-}
+#manipulate Indonesia's data set
+covidInd <- covidInd %>% 
+    mutate("NewCases"=diff(c(0, Confirmed)), "NewDeaths"=diff(c(0, Deaths)),"Date"=as.Date(Date)) %>%
+            separate(Date, c("Year", "Month", "Day"), sep="-", convert=T, remove=F) 
 
-#apply the function to each of the five data sets
-covidInd <- manipulateData(covidInd)
-covidBang <- manipulateData(covidBang)
-covidPhil <- manipulateData(covidPhil)
-covidViet <- manipulateData(covidViet)
-```
+#manipulate Bangladesh's data set
+covidBang <- covidBang %>% 
+    mutate("NewCases"=diff(c(0, Confirmed)), "NewDeaths"=diff(c(0, Deaths)),"Date"=as.Date(Date)) %>%
+            separate(Date, c("Year", "Month", "Day"), sep="-", convert=T, remove=F) 
 
-    ## Error: Assigned data `as.Date(dataset$Date)` must be compatible with existing data.
-    ## x Existing data has 1 row.
-    ## x Assigned data has 0 rows.
-    ## ℹ Row updates require a list value. Do you need `list()` or `as.list()`?
+#manipulate Philippines' data set
+covidPhil <- covidPhil %>% 
+    mutate("NewCases"=diff(c(0, Confirmed)), "NewDeaths"=diff(c(0, Deaths)),"Date"=as.Date(Date)) %>%
+            separate(Date, c("Year", "Month", "Day"), sep="-", convert=T, remove=F) 
 
-``` r
-covidThai <- manipulateData(covidThai)
-```
-
-    ## Error: Assigned data `as.Date(dataset$Date)` must be compatible with existing data.
-    ## x Existing data has 1 row.
-    ## x Assigned data has 0 rows.
-    ## ℹ Row updates require a list value. Do you need `list()` or `as.list()`?
-
-``` r
 #now we can put them all together in one data set for data exploration and analysis
-dataset <- bind_rows(covidBang, covidInd, covidPhil, covidThai, covidViet)
-dataset <- dataset %>% select(-c(message, success))
+dataset <- bind_rows(covidBang, covidInd, covidPhil)
+dataset <- dataset %>% select(Country, Confirmed, Deaths, Recovered, Active, Date, Year, Month, Day, NewCases, NewDeaths)
+dataset$Country <- as.factor(dataset$Country)
+
 #show first few rows of the big data set
 head(dataset)
 ```
@@ -414,9 +395,9 @@ head(dataset)
     ## 5 Bangladesh         0      0         0      0 2020-01-26  2020     1    26        0         0
     ## 6 Bangladesh         0      0         0      0 2020-01-27  2020     1    27        0         0
 
-# IV. Exploratory Data Analysis
+# Exploratory Data Analysis
 
-## 1. Contingency Tables
+## Contingency Tables
 
 The first exploratory analysis that we will use is the contingency
 table. We can show through tables different counts of different
@@ -485,7 +466,7 @@ kable(dataCont, caption="Philippines' 7-day Contingency Table of Active Cases")
 
 Philippines’ 7-day Contingency Table of Active Cases
 
-## 2. Numerical Summaries
+## Numerical Summaries
 
 The next exploratory analysis that we will do is the use of numerical
 summaries. These summaries will describe characteristics about a
@@ -511,7 +492,6 @@ kable(dataNumSum, caption="Numerical Summaries of Daily Covid Cases since the St
 | Bangladesh  | 2511.850 | 1670.5 | 2971.046 |  662.75 | 2964.25 | 2301.50 |   16230 |
 | Indonesia   | 6803.455 | 4173.5 | 9694.461 | 1193.00 | 6830.75 | 5637.75 |   56757 |
 | Philippines | 4137.882 | 2069.0 | 4998.136 |  737.50 | 5877.75 | 5140.25 |   27887 |
-| NA          |       NA |     NA |       NA |      NA |      NA |      NA |      NA |
 
 Numerical Summaries of Daily Covid Cases since the Start of Pandemic
 
@@ -530,7 +510,6 @@ kable(dataNumSum, caption="Numerical Summaries of New Deaths since the Start of 
 | Bangladesh  |  44.44355 |   30.0 |  55.18313 | 14.00 |  44.25 |  30.25 |     264 |
 | Indonesia   | 229.21774 |  116.5 | 367.00349 | 49.75 | 196.25 | 146.50 |    2069 |
 | Philippines |  62.08548 |   35.5 |  72.20077 |  9.75 |  94.00 |  84.25 |     568 |
-| NA          |        NA |     NA |        NA |    NA |     NA |     NA |      NA |
 
 Numerical Summaries of New Deaths since the Start of Pandemic
 
@@ -549,15 +528,14 @@ kable(dataNumSum, caption="Numerical Summaries of Active Cases since the Start o
 | Bangladesh  | 191805.9 |  63539 |  414217.4 | 41052.00 |  92209.75 |  51157.75 | 1529792 |
 | Indonesia   | 455215.1 |  67678 | 1127805.6 | 27033.00 | 144432.75 | 117399.75 | 4076027 |
 | Philippines | 229396.7 |  38884 |  594104.6 | 21326.25 |  59582.00 |  38255.75 | 2541517 |
-| NA          |       NA |     NA |        NA |       NA |        NA |        NA |      NA |
 
 Numerical Summaries of Active Cases since the Start of Pandemic
 
-Among the five countries, the Philippines consistently rank the second
+Among the three countries, the Philippines consistently rank the second
 highest next to Indonesia in all numerical summaries and across all
 three variables.
 
-## 3. Bar plots
+## Bar plots
 
 For our bar plots example, we will use the October 1, 2021 data of the
 five countries. The use of bar plots help us show comparison between
@@ -575,7 +553,7 @@ ggplot(dataBarPlot, aes(Country, NewCases)) + geom_col(fill="Blue", alpha=0.5) +
     geom_text(aes(label=NewCases))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
 ``` r
 #barplot for new deaths
@@ -585,7 +563,7 @@ ggplot(dataBarPlot, aes(Country, NewDeaths)) + geom_col(fill="red", alpha=0.5) +
     geom_text(aes(label=NewDeaths))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-5-2.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-17-2.png)<!-- -->
 
 ``` r
 #barplot for active cases
@@ -595,17 +573,18 @@ ggplot(dataBarPlot, aes(Country, Active)) + geom_col(fill="green", alpha=0.5) +
     geom_text(aes(label=Active))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-5-3.png)<!-- --> It can be
-seen from the barplots above that last October 1, 2021, the Philippines
-consistently rank second for new cases and new deaths recorded on that
-day while it went one rank lower in terms of the number of active cases
-on that same day.
+![](README_files/figure-gfm/unnamed-chunk-17-3.png)<!-- -->
 
-## 4. Histograms
+It can be seen from the barplots above that last October 1, 2021, the
+Philippines consistently rank second for new cases and new deaths
+recorded on that day while it went one rank lower in terms of the number
+of active cases on that same day.
+
+## Histograms
 
 We will use histograms to summarize or provide a visual representation
 of the distribution of our data. We will use `facet_wrap()` to place
-histograms of the five countries in one plot. In the same manner, we
+histograms of the three countries in one plot. In the same manner, we
 will use the three variables new cases, new deaths and active cases for
 the month of September 2021.
 
@@ -619,7 +598,7 @@ ggplot(dataHist, aes(NewCases)) + geom_histogram(bins=17, color="black", fill="b
     facet_wrap(~Country)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
 
 ``` r
 #new deaths
@@ -628,7 +607,7 @@ ggplot(dataHist, aes(NewDeaths)) + geom_histogram(bins=17, color="black", fill="
     facet_wrap(~Country)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-6-2.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-18-2.png)<!-- -->
 
 ``` r
 #active cases
@@ -637,16 +616,17 @@ ggplot(dataHist, aes(Active)) + geom_histogram(bins=20, color="black", fill="yel
     facet_wrap(~Country)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-6-3.png)<!-- --> The daily
+![](README_files/figure-gfm/unnamed-chunk-18-3.png)<!-- --> The daily
 cases histograms suggest that the Philippines’ September data is skewed
-to the left which means there are a number of days in September where it
-records more Covid cases as compared to the other four countries. On the
-other hand, the new deaths histogram show that all five countries have
-similar distributions. Lastly, the active cases histograms are not very
-meaningful because some countries failed to submit their number of daily
-recoveries which aids in computing active cases per day.
+to the left which means that there are a number of days in September
+where it records more Covid cases as compared to the other two
+countries. On the other hand, the new deaths histogram show that
+Indonesia and Philippines have similar distributions. Lastly, the active
+cases histograms are not very meaningful because some countries failed
+to submit their number of daily recoveries which aids in computing
+active cases per day.
 
-## 5. Boxplots
+## Box plots
 
 We will use box plots to show visually the distribution of our three
 numerical data (new cases, new deaths and active cases) for the month of
@@ -662,7 +642,7 @@ ggplot(dataBoxPlot, aes(Country, NewCases)) + geom_boxplot(aes(colour=Country)) 
     theme(legend.position="none")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
 
 ``` r
 #new deaths box plots
@@ -671,7 +651,7 @@ ggplot(dataBoxPlot, aes(Country, NewDeaths)) + geom_boxplot(aes(colour=Country))
     theme(legend.position="none") 
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-7-2.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-19-2.png)<!-- -->
 
 ``` r
 #active cases boxplots
@@ -680,52 +660,48 @@ ggplot(dataBoxPlot, aes(Country, Active)) + geom_boxplot(aes(colour=Country)) +
     theme(legend.position="none")   
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-7-3.png)<!-- --> The box plot
+![](README_files/figure-gfm/unnamed-chunk-19-3.png)<!-- --> The box plot
 on new Covid cases suggest that the the Philippines recorded the highest
-for the month of September. It recorded low new deaths for the same
-month but second in rank in terms of active cases. These box plots
-suggest further that there is significant difference in terms of the
+for the month of September. It is second in rank again for both number
+new deaths and active cases in the same month. These box plots suggest
+further that there is significant difference in terms of the
 distributions of the data in each country.
 
-## 6. Scatterplots with Line Graphs
+## Scatterplots with Line Graphs
 
-In these plots, we will use only three countries for easy comparison of
-trends of data. We will use the ‘Date’ variable to easily plot trends
+In these plots, we will use the ‘Date’ variable to easily plot trends
 since the start of the pandemic. We will overlay line graphs to to our
 scatter plots to help show trends of our data.
 
 ``` r
-#prepare dataset
-dataScatter <- dataset %>% filter(Country == c("Philippines", "Thailand", "Indonesia"))
-
 #New Cases
-ggplot(dataScatter, aes(Date, NewCases)) + geom_jitter(aes(color=Country)) + 
+ggplot(dataset, aes(Date, NewCases)) + geom_jitter(aes(color=Country)) + 
   geom_line(aes(group=Country, color=Country)) +
     labs(x="Date", y="New Covid Cases", 
          title="Scatterplots with Line Graphs of New Covid Cases since the Start of Pandemic")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
 
 ``` r
 #New Deaths
-ggplot(dataScatter, aes(Date, NewDeaths)) + geom_jitter(aes(color=Country)) + 
+ggplot(dataset, aes(Date, NewDeaths)) + geom_jitter(aes(color=Country)) + 
   geom_line(aes(group=Country, color=Country)) +
     labs(x="Date", y="New Deaths", 
          title="Scatterplots with Line Graphs of New Deaths since the Start of Pandemic")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-8-2.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-20-2.png)<!-- -->
 
 ``` r
 #Active Cases
-ggplot(dataScatter, aes(Date, Active)) + geom_jitter(aes(color=Country)) + 
+ggplot(dataset, aes(Date, Active)) + geom_jitter(aes(color=Country)) + 
   geom_line(aes(group=Country, color=Country)) +
     labs(x="Date", y="Active Cases", 
          title="Scatterplots with Line Graphs of Active Cases since the Start of Pandemic")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-8-3.png)<!-- --> The line
+![](README_files/figure-gfm/unnamed-chunk-20-3.png)<!-- --> The line
 graphs of new Covid cases suggest that since the start of the pandemic,
 the Philippines have experienced three waves of the spread of Covid-19.
 It has consistently ranked second, next to Indonesia, for both new cases
@@ -734,7 +710,7 @@ August 2021 is due to the different countries’ failure to submit reports
 on the number of daily recoveries thus loosing track of current active
 cases.
 
-# V. Summary
+# Summary
 
 Doing this project gave me mixed emotions. I enjoyed making this
 vignette because the idea of working on real-time data and sharing
@@ -745,6 +721,6 @@ terms of its effort of controlling the spread of the virus and
 minimizing unnecessary loss of lives. On the brighter side, this project
 gives me hope that there are ways to improve our fight against this
 virus. One thing that the government can do is to look at, learn from
-and imitate our neighboring countries like Vietnam their strategies that
-work to mitigate the spread of the virus. The fight is not over yet as
-long as we are willing to learn from our mistakes and do our part.
+and imitate our neighboring countries’ strategies that work to mitigate
+the spread of the virus. The fight is not over yet as long as we are
+willing to learn from our mistakes and do our part.
