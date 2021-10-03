@@ -24,22 +24,136 @@ library(httr)
 ```
 
 
-```{r}
-#helper function to generate a vector of countries and their corresponding Slug name whose data are update daily.
+```{r 1}
+#function that generates a vector of countries and their corresponding Slug name whose data are update daily.
 
 countryList <- function(){
-  covid <- GET("https://api.covid19api.com/summary")
+  covid <- GET("https://api.covid19api.com/countries")
   covidDF <- fromJSON(rawToChar(covid$content))
-  countryList <- covidDF$Countries %>% select(Country, Slug) %>% as_tibble()
+  countryList <- covidDF %>% as_tibble()
   return(countryList)
 }
-  
+
 countryList <- countryList()
-kable(t(countryList))
+head(countryList)
 ```
 
-```{r}
-#function to generate data of a particular country
+```{r 2}
+#a function to determine the slug name of a country
+
+countrySlugAbbrev <- function(inputCountry){
+  if (inputCountry %in% countryList$Country){
+      covidData <- GET("https://api.covid19api.com/countries")
+      covidDF <- fromJSON(rawToChar(covidData$content))
+      dataTibble <- covidDF %>% filter(Country == inputCountry ) %>% as_tibble()
+  } else {
+    message <- paste("ERROR: Argument for country cannot be found, check spelling.
+                     Lastly, use quotation marks in your arguments.")
+    stop(message)
+  }
+  return(dataTibble)
+}
+  
+countrySlugAbbrev("United States of America")
+```
+
+```{r 3}
+#function to determine the date of the first confirmed covid case of a country
+firstCase <- function(countrySlug){
+  if (countrySlug %in% countryList$Slug){
+      url <- paste0("https://api.covid19api.com/dayone/country/",countrySlug,"/status/confirmed")
+      covidData <- GET(url)
+      covidDF <- fromJSON(rawToChar(covidData$content))
+      dataTibble <- covidDF %>% select(Country, Cases, Status, Date) %>% as_tibble()
+  } else {
+    message <- paste("ERROR: Argument for country nslug cannot be found, check spelling.
+                     Lastly, use quotation marks in your arguments.")
+    stop(message)
+  }
+  return(dataTibble[1,])
+}
+
+firstCase("philippines")
+```
+
+```{r 4}
+#confirmed cumulative cases of a country in a specific range of time
+#specific country and specific time, start and end date must be in the format yyyy-mm-dd
+
+casesCountryTime <- function(countrySlug, startDate, endDate){
+  if (countrySlug %in% countryList$Slug){
+      url <- paste0("https://api.covid19api.com/total/country/",countrySlug,
+                    "/status/confirmed?from=",startDate,"T00:00:00Z&to=",endDate,"T00:00:00Z")
+      covidData <- GET(url)
+      covidDF <- fromJSON(rawToChar(covidData$content))
+      dataTibble <- covidDF %>% select(Country, Cases, Status, Date) %>% as_tibble()
+  } else {
+    message <- paste("ERROR: Argument for country slug may not be found, check the list of 
+                      countries with its corresponding slug name. Start and end dates are might
+                      have formatted incorrectly. Lastly, use quotation marks in your arguments.")
+    stop(message)
+  }
+  return(dataTibble)
+}
+
+philSept <- casesCountryTime("philippines","2021-09-01", "2021-09-30")
+head(philSept)
+
+```
+
+
+```{r 5,warning=F, message=F}
+#function to get data of a country's cumulative cases of the following: Confirmed, Deaths, Recovered and Active.
+
+variableCountryTime <- function(countrySlug, startDate, endDate, type){
+  if (countrySlug %in% countryList$Slug){
+      url <- paste0("https://api.covid19api.com/country/",countrySlug,
+                    "?from=",startDate,"T00:00:00Z&to=",endDate,"T00:00:00Z")
+      covidData <- GET(url)
+      covidDF <- fromJSON(rawToChar(covidData$content))
+      dataTibble <- covidDF %>% select(Country, type, Date) %>% as_tibble()
+  } else {
+    message <- paste("ERROR: Argument for country slug may not be found, check the list of 
+                      countries with its corresponding slug name. Start and end dates 
+                      are might have formatted incorrectly. Lastly, use quotation marks in your arguments.")
+    stop(message)
+  }
+  return(dataTibble)
+}
+
+philSept <- variableCountryTime("philippines","2021-09-26", "2021-10-02", "Deaths")
+philSept
+```
+
+```{r 6}
+#get latest results of five countries to compare
+compareCountries <- function(country1, country2, country3, country4, country5){
+  covid <- GET("https://api.covid19api.com/summary")
+  covidDF <- fromJSON(rawToChar(covid$content))
+  data <- covidDF$Countries %>% as_tibble()
+  countries <- c(country1, country2, country3, country4, country5)
+  finalData <- data.frame(matrix(ncol=6,nrow=0))
+  names(finalData) <- c("Country","NewConfirmed","TotalConfirmed","NewDeaths","TotalDeaths","Date")
+  for (country in countries){
+    if (country %in% data$Country){
+      finalData[nrow(finalData)+1, ] <- data %>% filter(data$Country == country) %>% 
+        select(c(Country,NewConfirmed,TotalConfirmed,NewDeaths,TotalDeaths,Date))
+    }
+    else{
+      message <- paste("ERROR: Check spelling of first country or use quotation marks.")
+      stop(message)
+    }
+  }
+  return(finalData %>% as_tibble())
+}  
+  
+compareCountries("Philippines","China", "Mexico", "United States of America", "Canada")
+
+```
+
+
+```{r 7}
+#function to generate all data (daily new cases, deaths, active and recoveries) of a particular country since the start of the pandemic
 
 countryData <- function(countrySlug){
   if (countrySlug %in% countryList$Slug){
@@ -57,130 +171,6 @@ countryData <- function(countrySlug){
 }
 
 #now we can use the function to generate some data from five sample countries
-covidInd <- countryData("indonesia")
-covidBang <- countryData("bangladesh")
-covidPhil <- countryData("philippines")
-covidViet <- countryData("vietnam")
-covidThai <- countryData("thailand")
+covidUS <- countryData("united-states")
+tail(covidUS)
 ```
-
-
-# Data Manipulation
-```{r}
-#we can create a function that will manipulate our data to prepare for data summaries and visualization
-manipulateData <- function(dataset){
-  dataset$Date <- as.Date(dataset$Date)
-  dataset <- dataset %>% select(-c(CountryCode, Province, City, CityCode, Lat, Lon)) %>%
-                  separate(Date, c("Year", "Month", "Day"), sep="-", convert=T, 
-                     remove=F) %>% mutate("NewCases"=diff(c(0, Confirmed)),
-                                          "NewDeaths"=diff(c(0, Deaths)))
-  dataset$Country <- as.factor(dataset$Country)
-  return(dataset)
-}
-
-#manipulate each dataset using the function above to prepare for summarization and visualization
-covidInd <- manipulateData(covidInd)
-covidBang <- manipulateData(covidBang)
-covidPhil <- manipulateData(covidPhil)
-covidViet <- manipulateData(covidViet)
-covidThai <- manipulateData(covidThai)
-
-#histogram
-ggplot(covidPhil, aes(NewDeaths)) + geom_histogram()
-
-#barplot
-dataBarPlot <- dataset %>% filter(Country=="Philippines", Year==2021, Month==9)
-ggplot(dataBarPlot, aes(Day, NewDeaths)) + geom_col()
-
-
-
-
-#dataset <- bind_rows(covidBang, covidInd, covidPhil, covidThai, covidViet)
-
-
-#datasetPlot <- dataset %>% filter(Country %in% c("Indonesia", "Philippines", "Vietnam"))
-
-
-#ggplot(dataset, aes(Date,NewDeaths)) + geom_area(aes(fill=Country, alpha=0.5)) + geom_text(aes(label=NewDeaths))
-
-
-#scatterplot
-#dataBarPlot <- dataset %>% filter(Country %in% c("Philippines", "Thailand"), Year==2021, Month==9)
-#ggplot(dataBarPlot, aes(Day, NewDeaths)) + geom_jitter(aes(color=Country))
-
-#boxplot
-#dataBoxPlot <- dataset %>% filter(Country %in% c("Philippines", "Thailand"), Year==2021, Month==9)
-
-#ggplot(dataBoxPlot, aes(Country %in% c("Philippines", "Thailand"), NewDeaths)) + 
-  #geom_boxplot(aes(colour=Country))
-```
-
-```{r warning=F, message=F}
-#covidInd <- covidInd %>% filter(Year == 2021 & Month == 09)
-
-#ggplot(covidInd, aes(covidInd$Date, covidInd$NewCases)) + geom_col()
-
-#ggplot(covidInd, aes(covidInd$Date, covidInd$NewDeaths)) + geom_col()
-
-```
-
-
-
-
-
-```{r}
-#get results of five countries to compare
-compareCountries <- function(country1, country2, country3, country4, country5){
-  covid <- GET("https://api.covid19api.com/summary")
-  covidDF <- fromJSON(rawToChar(covid$content))
-  data <- covidDF$Countries %>% as_tibble()
-  #checks if first country supplied is in the data, misspelled or lack quotation marks
-  if (country1 %in% data$Country){
-    output1 <- data %>% filter(data$Country == country1) %>% select(-c(ID,Slug,Premium))
-  }
-  else{
-    message <- paste("ERROR: Check spelling of first country or use quotation marks.")
-    stop(message)
-  }
-  #checks if second country supplied is in the data, misspelled or lack quotation marks
-  if (country2 %in% data$Country){
-    output2 <- data %>% filter(data$Country == country2) %>% select(-c(ID,Slug, Premium))
-  }
-  else{
-    message <- paste("ERROR: Check spelling of second country or use quotation marks.")
-    stop(message)
-  }
-  #checks if third country supplied is in the data, misspelled or lack quotation marks
-  if (country3 %in% data$Country){
-  output3 <- data %>% filter(data$Country == country3) %>% select(-c(ID,Slug, Premium))
-  }
-  else{
-    message <- paste("ERROR: Check spelling of third country or use quotation marks.")
-    stop(message)
-    }
-  #checks if fourth country supplied is in the data, misspelled or lack quotation marks  
-  if (country4 %in% data$Country){
-  output4 <- data %>% filter(data$Country == country4) %>% select(-c(ID,Slug, Premium))
-  }
-  else{
-    message <- paste("ERROR: Check spelling of fourth country or  use quotation marks.")
-    stop(message)
-  }
-  #checks if fifth country supplied is in the data, misspelled or lack quotation marks  
-  if (country5 %in% data$Country){
-  output5 <- data %>% filter(data$Country == country5) %>% select(-c(ID, Slug, Premium))
-  }
-  else{
-    message <- paste("ERROR: Check spelling of fifth country or use quotation marks.")
-    stop(message)
-  }
-  output <- rbind(output1, output2, output3, output4, output5) %>% kable()
-  return(output)
-}
-
-#check function if it works
-compareCountries("Philippines","China", "Mexico", "United States of America", "Australia")
-
-```
-
-
